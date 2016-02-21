@@ -1,15 +1,27 @@
 package rmi.Client;
 
+import java.util.Set;
+
 import org.bson.Document;
 
-import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.util.JSON;
+
 
 public class mongoTest {
 	
+	
+//	public static boolean collectionExists(final String collectionName, MongoDatabase db) {
+//	    @SuppressWarnings("unchecked")
+//		Set<String> collectionNames = (Set<String>) db.listCollectionNames();
+//	    for (final String name : collectionNames) {
+//	        if (name.equalsIgnoreCase(collectionName)) {
+//	            return true;
+//	        }
+//	    }
+//	    return false;
+//	}
 
 	public static void main(String args[]) {
 		try
@@ -21,14 +33,14 @@ public class mongoTest {
 
 		MongoDatabase db = mongoClient.getDatabase("mongoTest");
 		System.out.println("Connect to database successfully");
+				
 		
-		//db.createCollection("coll1");
+			//db.createCollection("coll1");
 		MongoCollection<Document> collection = db.getCollection("coll1");
 		
-		DBObject bson = ( DBObject ) JSON.parse( st );
-		collection.insertOne((Document) bson);
-	
 		
+		Document doc = Document.parse(st);
+		collection.insertOne(doc);
 		
 		}
 		catch(Exception e)

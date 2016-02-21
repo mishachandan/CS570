@@ -7,7 +7,9 @@ public interface WeatherImpl extends Remote {
 	
 	String getData(int zip) throws RemoteException;
 	
-	String storeData() throws RemoteException;
+	boolean storeData(String res) throws RemoteException;
+	
+	boolean fetchDataAll() throws RemoteException;
 	
 
 }

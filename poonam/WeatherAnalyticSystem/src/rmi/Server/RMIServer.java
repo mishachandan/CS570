@@ -30,41 +30,28 @@ public class RMIServer extends UnicastRemoteObject implements WeatherImpl {
 	public String getData(int zip) throws RemoteException {
 
 		String city = config.getCityNameFromZip(zip);
+
+		System.out.println("---city name = " + city);
 		
-		System.out.println("---city name = "+ city);
-		String query = "select * from geo.places where text=\"" + city + "\"";
-		String url;
-		URL myURL;
-
-		try {
-			url = config.getURL() + URLEncoder.encode(query, "UTF-8")
-					+ "&format=json&env=store://datatables.org/alltableswithkeys";
-			myURL = new URL(url);
-
-			// http connection to url and get weather data for city
-			String result = config.getCityWeatherData(myURL);
+		// http connection to url and get weather data for city
+			String result = config.getCityWeatherData(city);
 
 			return result;
 
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		}
-
-		String msg = "Poonam ";
-		return "Hello " + msg;
 	}
 
 	public static void main(String args[]) {
 		try {
 
-			RMIServer obj = new RMIServer();
+			RMIServer obj = new RMIServer(); // getdata method
 			RMIServer obj2 = new RMIServer(); // obj for storeData method
+			RMIServer obj3 = new RMIServer(); // for fetchall method
 
 			// Bind these object instance to the name "Hello" and "Store"
 			Naming.rebind("Get_Data", obj);
 			Naming.rebind("Store_Data", obj2);
+			Naming.rebind("fetch_data_all", obj3);
+			
 			System.out.println("Server Ready........");
 
 		} catch (Exception e) {
@@ -74,11 +61,26 @@ public class RMIServer extends UnicastRemoteObject implements WeatherImpl {
 
 	}
 
-	public String storeData() throws RemoteException {
+	public boolean storeData(String result) throws RemoteException {
 
-		MongoDatabase db = dbConnection.getDB();
-
-		return null;
+		if(dbConnection.insertDocument(result))
+		{	System.err.println("stored data--server");
+			return true;
+		}
+			
+		return false;
 	}
 
+	
+	public boolean fetchDataAll() throws RemoteException {
+		// fetch weather data for all cities daily
+		if(config.fetchALL())
+			return true;
+		else
+			return false;
+		// store in db
+
+	}
+
+	
 }

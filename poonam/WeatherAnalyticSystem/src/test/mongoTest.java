@@ -1,4 +1,4 @@
-package rmi.Client;
+package test;
 
 import java.util.Set;
 

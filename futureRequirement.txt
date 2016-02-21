@@ -1,0 +1,1 @@
+1.  Zipcode in RMI Client (Label)

@@ -1,0 +1,12 @@
+cd C:\Course\CS570\cs570marsworkspace\WeatherAnalyticSystem\src\util && javac -d C:\Course\CS570\cs570marsworkspace\WeatherAnalyticSystem\myclasses Cities.java config.java dbConnection.java && cd C:\Course\CS570\cs570marsworkspace\WeatherAnalyticSystem\src\rmi\Server && javac -d C:\Course\CS570\cs570marsworkspace\WeatherAnalyticSystem\myclasses WeatherImpl.java RMIServer.java && cd C:\Course\CS570\cs570marsworkspace\WeatherAnalyticSystem\src\rmi\Client && javac -d C:\Course\CS570\cs570marsworkspace\WeatherAnalyticSystem\myclasses RMIClient.java           
+
+
+
+cd ..\..\..\myclasses && rmic -classpath "C:\Course\CS570\cs570marsworkspace\WeatherAnalyticSystem\myclasses" rmi.Server.RMIServer -d .
+
+
+start rmiregistry && java rmi.Server.RMIServer
+
+cd C:\Course\CS570\cs570marsworkspace\WeatherAnalyticSystem\myclasses && java rmi.Client.RMIClient
+
+                                                                

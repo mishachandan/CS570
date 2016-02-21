@@ -1,1 +1,4 @@
+0. Keep RMI Server & Client at different Location.  http://stackoverflow.com/questions/12977337/java-rmi-example-thats-not-for-localhost
+
+
 1.  Zipcode in RMI Client (Label)

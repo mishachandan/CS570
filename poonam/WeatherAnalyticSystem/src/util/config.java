@@ -77,10 +77,12 @@ public class config {
 	public static String getCityWeatherData(String city) {
 
 		System.out.println("---- city value = " + city);
-		String query = "select * from geo.places where text=\"" + city + "\"";
+		String query = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"" + city + "\")";
 		String url;
 		URL myURL;
 		try {
+			
+			//select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="nome, ak")
 			url = config.getURL() + URLEncoder.encode(query, "UTF-8")
 					+ "&format=json&env=store://datatables.org/alltableswithkeys";
 			myURL = new URL(url);

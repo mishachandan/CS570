@@ -32,6 +32,7 @@ public class DetailsPanel extends JPanel {
         final JTextField zipfield = new JTextField(10);
        
         JButton addBtn = new JButton("check weather");
+        JButton fetchBtn = new JButton("Fetch Daily");
        /* JButton fetchBtn = new JButton("FETCH");*/
         
         addBtn.addActionListener(new ActionListener() {
@@ -48,6 +49,18 @@ public class DetailsPanel extends JPanel {
             }
             
         });
+        
+        fetchBtn.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+              
+            	
+                String text =RMIClient.fetchAllDaily();
+                
+                fireDetailEvent(new DetailEvent(this, text));
+            }
+            
+        });
 
         
         setLayout(new GridBagLayout());
@@ -58,7 +71,7 @@ public class DetailsPanel extends JPanel {
   	  
   	  gc.anchor = GridBagConstraints.FIRST_LINE_START;
         gc.weightx = 0.5;
-        gc.weighty = 1;
+        gc.weighty = 2;
         
         gc.gridx = 1;
         gc.gridy = 0;
@@ -79,6 +92,14 @@ public class DetailsPanel extends JPanel {
         gc.gridy = 2;
         add(addBtn, gc);
        /* add(fetchBtn, gc);*/
+        
+        //button 
+        gc.weighty = 10;
+        
+        gc.anchor = GridBagConstraints.FIRST_LINE_START;
+        gc.gridx = 1;
+        gc.gridy = 3;
+        add(fetchBtn, gc);
         
 	}    
         
